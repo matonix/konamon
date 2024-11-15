@@ -5,6 +5,9 @@ def make_notes_plot(df_notes) -> go.Figure:
 
     # Pandasデータフレームに変換
     df_pandas = df_notes.to_pandas()
+    
+    # タイムゾーン調整
+    df_pandas['date'] = df_pandas['date'] + timedelta(days=2)
 
     # Plotlyグラフの作成
     fig = go.Figure()
@@ -48,7 +51,7 @@ def make_notes_plot(df_notes) -> go.Figure:
         xaxis=dict(
             # title='Date',
             tickformat='%m-%d',  # 月単位で表示
-            range=[start_date-timedelta(days=0.5), latest_date+timedelta(days=0.5)]  # 最新1週間にフォーカス
+            range=[start_date+timedelta(days=0.5), latest_date+timedelta(days=0.5)]  # 最新1週間にフォーカス
         ),
         yaxis=dict(
             title='Total Notes',
